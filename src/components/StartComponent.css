@@ -3,26 +3,67 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  justify-content: space-between;
   /* gap: clamp(2.4rem, 2vw + 0.5rem, 2.8rem); */
-  padding-block: 1.5rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  /* border: 1px solid #fffdfd; */
+  height: 90vh;
 }
 
-.start-container h1 {
-  font-size: clamp(3rem, 3.8vw + 1rem, 4.8rem);
-  letter-spacing: 0.2rem;
-}
-
-.start-container p {
-  font-size: clamp(1.4rem, 1vw + 0.6rem, 1.8rem);
+.btn-container p {
+  font-size: clamp(1.5rem, 1vw + 0.6rem, 1.8rem);
   padding-block-end: 0.3rem;
   color: #fff;
   border-bottom: 2px solid #fff;
 }
 
-.btn-container {
-  margin-block-start: 5rem;
-}
-
 .btn-container button {
   margin-block-start: 2rem;
+}
+
+.guide-container h3 {
+  font-size: clamp(1.8rem, 1.8vw + 0.5rem, 2.5rem);
+  margin-block-end: 1.6rem;
+  text-align: center;
+  font-weight: normal;
+}
+
+.cards-tips {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-self: center;
+  gap: 1rem;
+}
+
+.cards-tips div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2e2e52;
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: 2rem;
+  padding-inline: 2rem;
+  padding-block: clamp(0.9rem, 0.5vw + 0.2rem, 1.2rem);
+  gap: clamp(2.4rem, 2vw + 0.5rem, 2.8rem);
+}
+
+.cards-tips div p {
+  font-size: clamp(1.4rem, 1vw + 0.4rem, 1.6rem);
+  flex-grow: 1;
+}
+
+.cards-tips div svg {
+  font-size: clamp(1.4rem, 1vw + 0.4rem, 1.6rem);
+}
+
+@media screen and (min-width: 768px) {
+  .cards-tips {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .start-container {
+    justify-content: space-around;
+  }
 }

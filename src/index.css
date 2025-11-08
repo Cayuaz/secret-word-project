@@ -8,6 +8,7 @@
 
 html {
   font-size: 62.5%;
+  height: 100vh;
 }
 
 @font-face {
@@ -20,7 +21,6 @@ body {
   font-family: "Titillium Web", sans-serif;
   background: linear-gradient(180deg, #2e2e52, #000000);
   color: #ffffff;
-  height: 100vh;
   padding-inline: 2rem;
 }
 
@@ -38,4 +38,9 @@ button {
 button:hover {
   cursor: pointer;
   background-color: #262642;
+}
+
+h1 {
+  font-size: clamp(3rem, 3.8vw + 1rem, 4.8rem);
+  letter-spacing: 0.2rem;
 }

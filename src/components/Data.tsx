@@ -13,4 +13,8 @@ const stages = [
   { id: 3, name: "end" },
 ];
 
-export {wordsList, stages}
+//Criação de um type alias com os tipos das keys da wordsList
+type wordsListKeys = keyof typeof wordsList;
+
+export { wordsList, stages };
+export type { wordsListKeys };
