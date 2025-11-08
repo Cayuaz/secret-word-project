@@ -34,7 +34,7 @@ const StartComponent = ({ handleClick }: StartComponentProps) => {
 
           <div>
             <FontAwesomeIcon icon={faKeyboard} />
-            <p>Digite uma letra </p>
+            <p>Tente acertar todas as letras</p>
           </div>
           <div>
             <FontAwesomeIcon icon={faTrophy} />

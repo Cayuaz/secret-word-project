@@ -8,7 +8,7 @@
   padding-block: 1rem;
   padding-inline: 1rem;
   /* border: 1px solid #fffdfd; */
-  height: 90vh;
+  min-height: 90vh;
 }
 
 .btn-container p {
@@ -63,7 +63,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .start-container {
+  /* .start-container {
     justify-content: space-around;
-  }
+  } */
 }
