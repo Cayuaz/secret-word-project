@@ -4,7 +4,7 @@ const wordsList = {
   corpo: ["Braço", "Perna", "Cérebro", "Pescoço", "Olhos"],
   computador: ["Mouse", "Teclado", "Monitor", "Gabinete"],
   programação: ["Linguagem", "Framework", "JavaScript", "React"],
-  comidas: ["Bolo", "Pizza", "Batata", "Lasanha", "Sorvete"],
+  comida: ["Bolo", "Pizza", "Batata", "Lasanha", "Sorvete"],
 };
 
 const stages = [

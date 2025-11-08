@@ -21,7 +21,7 @@ body {
   font-family: "Titillium Web", sans-serif;
   background: linear-gradient(180deg, #2e2e52, #000000);
   color: #ffffff;
-  padding-inline: 2rem;
+  min-height: 100vh;
 }
 
 button {

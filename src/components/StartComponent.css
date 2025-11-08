@@ -25,6 +25,7 @@
 .guide-container h3 {
   font-size: clamp(1.8rem, 1.8vw + 0.5rem, 2.5rem);
   margin-block-end: 1.6rem;
+  padding-block: 1rem;
   text-align: center;
   font-weight: normal;
 }
