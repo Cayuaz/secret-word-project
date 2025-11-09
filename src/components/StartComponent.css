@@ -3,12 +3,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   /* gap: clamp(2.4rem, 2vw + 0.5rem, 2.8rem); */
   padding-block: 1rem;
   padding-inline: 1rem;
   /* border: 1px solid #fffdfd; */
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 .btn-container p {

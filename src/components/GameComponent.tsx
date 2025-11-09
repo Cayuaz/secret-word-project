@@ -2,7 +2,9 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import "./GameComponent.css";
 
 type GameComponentProps = {
-  handleClick: (letter: string) => void;
+  handleClickCheck: (letter: string) => void;
+  handleClickExit: () => void;
+  removeAccents: (text: string) => string;
   word: string;
   tip: string;
   letters: string[];
@@ -12,8 +14,12 @@ type GameComponentProps = {
   wrongLetters: string[];
 };
 
+const lettersRegex = /^[a-z]$/i;
+
 const GameComponent = ({
-  handleClick,
+  handleClickCheck,
+  handleClickExit,
+  removeAccents,
   word,
   tip,
   letters,
@@ -26,13 +32,19 @@ const GameComponent = ({
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  //Função de callback do evento de submit do formulário com o input das letras digitas pelo usuário
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputValue) {
-      handleClick(inputValue);
+    //se o inputValue for válido
+    if (lettersRegex.test(inputValue)) {
+      handleClickCheck(inputValue.toLowerCase());
+      setInputValue("");
     }
+
     inputRef.current?.focus();
   };
+
+  console.log(letters);
 
   return (
     <div className="game-container">
@@ -60,10 +72,10 @@ const GameComponent = ({
       {/*Container com as letras da palavra escolhida */}
       <div className="letters-container">
         {letters.map((letter, i) => {
-          return guessedLetters.includes(letter) ? (
+          return guessedLetters.includes(removeAccents(letter)) ? (
             <span key={i}>{letter}</span>
           ) : (
-            <span key={i}>{}</span>
+            <span key={i}></span>
           );
         })}
       </div>
@@ -76,6 +88,7 @@ const GameComponent = ({
             id="letter-input"
             maxLength={1}
             placeholder="a"
+            value={inputValue}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setInputValue(e.target.value)
             }
@@ -83,9 +96,10 @@ const GameComponent = ({
           />
         </label>
 
-        <div>
+        <div className="game-buttons-container">
           {" "}
           <button type="submit">Verificar letra</button>
+          <button onClick={handleClickExit}>Sair do jogo</button>
         </div>
       </form>
     </div>
