@@ -4,6 +4,8 @@ import "./GameComponent.css";
 type GameComponentProps = {
   handleClickCheck: (letter: string) => void;
   handleClickExit: () => void;
+  displayWarn: () => void;
+  hideWarn: () => void;
   removeAccents: (text: string) => string;
   word: string;
   tip: string;
@@ -19,6 +21,8 @@ const lettersRegex = /^[a-z]$/i;
 const GameComponent = ({
   handleClickCheck,
   handleClickExit,
+  displayWarn,
+  hideWarn,
   removeAccents,
   word,
   tip,
@@ -39,9 +43,16 @@ const GameComponent = ({
     if (lettersRegex.test(inputValue)) {
       handleClickCheck(inputValue.toLowerCase());
       setInputValue("");
+    } else {
+      displayWarn();
     }
 
     inputRef.current?.focus();
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    hideWarn();
   };
 
   console.log(letters);
@@ -94,12 +105,11 @@ const GameComponent = ({
           <input
             type="text"
             id="letter-input"
+            required
             maxLength={1}
             placeholder="a"
             value={inputValue}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setInputValue(e.target.value)
-            }
+            onChange={handleChange}
             ref={inputRef}
           />
         </label>

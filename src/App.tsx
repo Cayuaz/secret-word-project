@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 //Data e Types
 import { wordsList, stages } from "./components/Data";
 import type { wordsListKeys } from "./components/Data";
+import WarnComponent from "./components/WarnComponent";
 
 const [start, game, end] = stages;
 
@@ -61,6 +62,16 @@ function App() {
   const [score, setScore] = useState(0);
   //useState das palavras acertadas pelo usuário
   const [guessedWords, setGuessedWord] = useState<string[]>([]);
+  //useState com o valor de ativação do warnComponent
+  const [warn, setWarn] = useState(false);
+
+  const hideWarn = () => {
+    setWarn(false);
+  };
+
+  const displayWarn = () => {
+    setWarn(true);
+  };
 
   //Função que limpa o estados antes do jogo começar e após cada palavra acertada
   const cleanStates = useCallback(() => {
@@ -195,6 +206,8 @@ function App() {
         <GameComponent
           handleClickCheck={checkLetter}
           handleClickExit={exitGame}
+          displayWarn={displayWarn}
+          hideWarn={hideWarn}
           removeAccents={removeAccents}
           word={word}
           tip={category}
@@ -214,6 +227,7 @@ function App() {
           word={word}
         />
       )}
+      {warn && <WarnComponent handleClickWarn={hideWarn} />}
     </div>
   );
 }
