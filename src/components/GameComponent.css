@@ -9,11 +9,14 @@
 }
 
 .tip-container {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.4rem;
+  padding-block: 1rem;
+  padding-inline: 1.2rem;
   background-color: #2e2e52;
   border: 2px solid #fff;
   border-radius: 2rem;
@@ -32,6 +35,12 @@ p {
 .guesses {
   color: var(--yellow);
   margin-inline-end: 0.6rem;
+}
+
+.main-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .info-container {
@@ -125,14 +134,23 @@ p {
 
 @media screen and (min-width: 768px) {
   .game-container {
-    width: 70%;
+    width: 75%;
   }
 
   .letters-container span {
-    width: calc((100% - (6 * 0.8rem)) / 7);
+    width: calc((100% - (7 * 0.8rem)) / 8);
   }
 
   .form label input {
     width: 70px;
+  }
+
+  .tip-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: normal;
+    justify-content: space-between;
+    text-align: center;
   }
 }

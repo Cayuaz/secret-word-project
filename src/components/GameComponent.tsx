@@ -49,25 +49,33 @@ const GameComponent = ({
   return (
     <div className="game-container">
       <h1>Advinhe a palavra</h1>
-      <div className="info-container">
-        {/*Container com as letras já digitadas */}
-        <div className="used-letters-container">
-          <p>Letras já utilizadas: </p>
-          {wrongLetters.map((letter, i) => (
-            <span key={i}>{letter}, </span>
-          ))}
+      <div className="main-info-container">
+        <div className="info-container">
+          {/*Container com as letras já digitadas */}
+          <div className="used-letters-container">
+            <p>
+              Letras já utilizadas:{" "}
+              {wrongLetters.map((letter, i) => {
+                return i === wrongLetters.length - 1 ? (
+                  <span key={i}>{letter}</span>
+                ) : (
+                  <span key={i}> {letter}, </span>
+                );
+              })}{" "}
+            </p>
+          </div>
+          <p className="guesses">Tentativas: {guesses}</p>
         </div>
-        <p className="guesses">Tentativas: {guesses}</p>
-      </div>
 
-      <div className="tip-container">
-        <p>
-          Dica:{" "}
-          <span>
-            palavra com {word.length} letras e relacionada a {tip}
-          </span>
-        </p>
-        <p>Pontuação: {points}</p>
+        <div className="tip-container">
+          <p>
+            Dica:{" "}
+            <span>
+              palavra com {word.length} letras e relacionada a {tip}
+            </span>
+          </p>
+          <p>Pontuação: {points}</p>
+        </div>
       </div>
       {/*Container com as letras da palavra escolhida */}
       <div className="letters-container">

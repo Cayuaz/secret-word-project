@@ -5,6 +5,7 @@ type GameOverComponentProps = {
   score: number;
   guessedWords: string[];
   guesses: number;
+  word: string;
 };
 
 const GameOverComponent = ({
@@ -12,20 +13,29 @@ const GameOverComponent = ({
   score,
   guessedWords,
   guesses,
+  word,
 }: GameOverComponentProps) => {
   return (
     <div className="game-over-container">
       <h1>Fim de jogo</h1>
       <div>
-        <h2>Resultados das partidas</h2>
+        <h2>Resultados das partidas: </h2>
         <div className="points-container ">
           <p>Pontuação final: {score}</p>{" "}
           <p
             className={guessedWords.length > 10 ? "guessedWordsAlignment" : ""}
           >
+            {/*Se o usuário acertar pelo menos uma palavra ela é exibida*/}
+            {/*A última palavra acertada não tem a vírgula adicionada no final*/}
             Palavras acertadas:{" "}
-            {guessedWords.length > 1 ? (
-              guessedWords.map((word) => <span>{word + " - "} </span>)
+            {guessedWords.length > 0 ? (
+              guessedWords.map((word, i) => {
+                return i === guessedWords.length - 1 ? (
+                  <span key={i}>{word}</span>
+                ) : (
+                  <span key={i}> {word}, </span>
+                );
+              })
             ) : (
               <span>nenhuma</span>
             )}
@@ -35,8 +45,9 @@ const GameOverComponent = ({
       {guesses <= 0 && (
         <div className="loss-container">
           <p>
-            <span>DERROTA!</span> Tentativas esgotadas.
+            <span>DERROTA!</span> Tentativas esgotadas
           </p>
+          <p>A palavra era: {word}</p>
           <h3>
             Clique no botão abaixo para ir à tela inicial e começar uma nova
             partida!

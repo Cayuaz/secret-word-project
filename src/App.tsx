@@ -7,7 +7,7 @@ import GameComponent from "./components/GameComponent";
 import GameOverComponent from "./components/GameOverComponent";
 
 //React
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 //Data e Types
 import { wordsList, stages } from "./components/Data";
@@ -20,6 +20,21 @@ const removeAccents = (text: string) => {
   const normalizeText = text.normalize("NFD");
   const newText = normalizeText.replace(/[\u0300-\u036f]/g, "");
   return newText;
+};
+
+//Função que pega a categoria e a palavra aleatória
+const getCategoryAndWord = () => {
+  //Array de chaves de wordsList do tipo wordsListKeys
+  const categoriesKeys = Object.keys(wordsList) as wordsListKeys[];
+  //Categoria aleatória gerada a partir de um índice calculado pelo Math.random * o tamanho de categoriesKeys
+  const randomCategory =
+    categoriesKeys[Math.floor(Math.random() * categoriesKeys.length)];
+  //Array de palavras da categoria escolhida
+  const category = wordsList[randomCategory];
+  //Palavra aleatória gerada a partir de um índice calculado pelo Math.random * o tamanho de category
+  const randomWord = category[Math.floor(Math.random() * category.length)];
+
+  return { randomCategory, randomWord };
 };
 
 function App() {
@@ -44,26 +59,11 @@ function App() {
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   //useState da pontuação do usuário
   const [score, setScore] = useState(0);
-
+  //useState das palavras acertadas pelo usuário
   const [guessedWords, setGuessedWord] = useState<string[]>([]);
 
-  //Função que pega a categoria e a palavra aleatória
-  const getCategoryAndWord = () => {
-    //Array de chaves de wordsList do tipo wordsListKeys
-    const categoriesKeys = Object.keys(wordsList) as wordsListKeys[];
-    //Categoria aleatória gerada a partir de um índice calculado pelo Math.random * o tamanho de categoriesKeys
-    const randomCategory =
-      categoriesKeys[Math.floor(Math.random() * categoriesKeys.length)];
-    //Array de palavras da categoria escolhida
-    const category = wordsList[randomCategory];
-    //Palavra aleatória gerada a partir de um índice calculado pelo Math.random * o tamanho de category
-    const randomWord = category[Math.floor(Math.random() * category.length)];
-
-    return { randomCategory, randomWord };
-  };
-
   //Função que limpa o estados antes do jogo começar e após cada palavra acertada
-  const cleanStates = () => {
+  const cleanStates = useCallback(() => {
     setGuessedLetters([]);
     setWrongLetters([]);
     if (gameStage === "start") {
@@ -71,26 +71,33 @@ function App() {
       setGuesses(5);
       setGuessedWord([]);
     }
-  };
+  }, [
+    setGuessedLetters,
+    setWrongLetters,
+    gameStage,
+    setScore,
+    setGuesses,
+    setGuessedWord,
+  ]);
 
   //Callbacks
   //Função que vai mudar para o componente game e definir os valores dos useStates de categoria, word e letras
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     cleanStates();
     const { randomCategory, randomWord } = getCategoryAndWord();
 
-    //Categoria
+    //Categoria escolhida
     console.log("Categoria: " + randomCategory);
     setCategory(randomCategory);
 
-    //Palavra
+    //Palavra escolhida
     console.log("Palavra: " + randomWord);
     setWord(randomWord);
 
-    //Remoção de espaços na palavra
+    //Remoção de espaços na palavra escolhida
     const cleanRandomWord = randomWord.replace(/\s/g, "");
 
-    //Array de letras
+    //Array de letras da palavra escolhida
     const wordLetters = cleanRandomWord.toLowerCase().split("");
     setLetters(wordLetters);
 
@@ -100,7 +107,13 @@ function App() {
     setLettersWhithoutAccents(wordWhithoutAccents.split(""));
 
     setGameStage(game.name);
-  };
+  }, [
+    cleanStates,
+    setCategory,
+    setWord,
+    setLetters,
+    setLettersWhithoutAccents,
+  ]);
 
   //Função de callback do botão de sair do jogo
   const exitGame = () => {
@@ -117,14 +130,18 @@ function App() {
     const isGuessed = guessedLetters.includes(letter);
     const isWrong = wrongLetters.includes(letter);
 
+    if (isGuessed || isWrong) {
+      return;
+    }
+
     //se a letra for válida e ela já não estiver no array de letras acertadas
-    if (isLetterValid && !isGuessed) {
+    if (isLetterValid) {
       //Se a letra estiver, ela é adicionada ao array de letras de acertadas
       setGuessedLetters((prev) => [...prev, letter]);
     }
 
     //se a letra não for válida e ela já não estiver no array de letras erradas
-    if (!isLetterValid && !isWrong) {
+    if (!isLetterValid) {
       setWrongLetters((prev) => [...prev, letter]);
       setGuesses((prev) => prev - 1);
     }
@@ -132,13 +149,18 @@ function App() {
 
   //useEffect que cuida da condição de vitória do usuário
   useEffect(() => {
+    //Impede que o useEffect comece antes que o jogo se inicie
+    //Se lettersWhithoutAccents estiver vazio significa que handleStart não foi chamada e que o jogo não se iniciou
     if (lettersWhithoutAccents.length <= 0) {
       return;
     }
 
-    if (
-      lettersWhithoutAccents.every((letter) => guessedLetters.includes(letter))
-    ) {
+    //Array de letras sem caracteres repetidos
+    const uniqueLetters = [...new Set(lettersWhithoutAccents)];
+
+    console.log(uniqueLetters);
+
+    if (uniqueLetters.every((letter) => guessedLetters.includes(letter))) {
       setScore((prev) => prev + 100);
       handleStart();
       setGuessedWord((prev) => [...prev, word]);
@@ -158,7 +180,7 @@ function App() {
     if (guesses < 1) {
       setGameStage(end.name);
     }
-  }, [guesses, setGameStage, end.name]);
+  }, [guesses, setGameStage]);
 
   //Função que vai mudar para o componente start
   const handleRestart = () => {
@@ -189,6 +211,7 @@ function App() {
           score={score}
           guessedWords={guessedWords}
           guesses={guesses}
+          word={word}
         />
       )}
     </div>
