@@ -132,15 +132,26 @@ function App() {
 
   //useEffect que cuida da condição de vitória do usuário
   useEffect(() => {
+    if (lettersWhithoutAccents.length <= 0) {
+      return;
+    }
+
     if (
       lettersWhithoutAccents.every((letter) => guessedLetters.includes(letter))
     ) {
-      handleStart();
       setScore((prev) => prev + 100);
+      handleStart();
       setGuessedWord((prev) => [...prev, word]);
       console.log("Wins");
     }
-  }, [lettersWhithoutAccents, guessedLetters, handleStart, setScore]);
+  }, [
+    lettersWhithoutAccents,
+    guessedLetters,
+    setScore,
+    handleStart,
+    setGuessedWord,
+    word,
+  ]);
 
   //useEffect que cuida da condição de derrota do usuário
   useEffect(() => {
@@ -172,7 +183,14 @@ function App() {
           wrongLetters={wrongLetters}
         />
       )}
-      {gameStage === "end" && <GameOverComponent handleClick={handleRestart} />}
+      {gameStage === "end" && (
+        <GameOverComponent
+          handleClick={handleRestart}
+          score={score}
+          guessedWords={guessedWords}
+          guesses={guesses}
+        />
+      )}
     </div>
   );
 }
