@@ -7,11 +7,11 @@
 .game-over-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap: 2rem;
   width: 80%;
   min-height: 100vh;
-  padding-block: 2rem;
+  padding-block: clamp(1rem, 0.8vw + 0.4rem + 1.4rem);
 }
 
 .game-over-container h2 {

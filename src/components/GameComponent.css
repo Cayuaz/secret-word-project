@@ -1,11 +1,11 @@
 .game-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap: 0.6rem;
   width: 90%;
   min-height: 100vh;
-  padding-block: 2rem;
+  padding-block: clamp(2rem, 1.8vw + 0.4rem, 2.4rem);
 }
 
 .tip-container {

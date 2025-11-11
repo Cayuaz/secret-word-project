@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  justify-content: space-around;
-  padding-block: 1.6rem;
+  justify-content: space-evenly;
+  padding-block: clamp(1rem, 0.8vw + 0.4rem + 1.4rem);
   padding-inline: 1rem;
   min-height: 100vh;
 }
