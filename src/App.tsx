@@ -7,11 +7,17 @@ import GameComponent from "./components/GameComponent";
 import GameOverComponent from "./components/GameOverComponent";
 
 //React
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+  type KeyboardEvent,
+} from "react";
 
 //Data e Types
 import { wordsList, stages } from "./components/Data";
-import type { wordsListKeys } from "./components/Data";
+import type { focusRef, wordsListKeys } from "./components/Data";
 import WarnComponent from "./components/WarnComponent";
 
 const [start, game, end] = stages;
@@ -45,7 +51,6 @@ function App() {
   const [category, setCategory] = useState("");
   //useState da palavra escolhida
   const [word, setWord] = useState("");
-  // const arrLetters: string[] = []
   //useState das letras da palavra escolhida
   const [letters, setLetters] = useState<string[]>([]);
   //useState com as letras da palavra escolhida sem acentos
@@ -65,13 +70,35 @@ function App() {
   //useState com o valor de ativação do warnComponent
   const [warn, setWarn] = useState(false);
 
+  //Refs para o atributo ref de GameComponent e WarnComponentt
+  //Vão permitir o acesso ao input e o botão que estão dentro deles
+  const childRefInput = useRef<focusRef>(null);
+  const childRefButton = useRef<focusRef>(null);
+
+  //Quando o warn container é fechado, o foco volta para o input de letras
   const hideWarn = () => {
     setWarn(false);
+    childRefInput.current?.focus();
+  };
+
+  const hideWarnKeyUp = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Escape") {
+      setWarn(false);
+      childRefInput.current?.focus();
+    }
   };
 
   const displayWarn = () => {
     setWarn(true);
   };
+
+  //Quando o warn container é aberto, o botão de fechar dentro dele recebe o foco
+  //O useEffect garante que o foco só vai ser concluído após a renderização do warn component
+  useEffect(() => {
+    if (warn) {
+      childRefButton.current?.focus();
+    }
+  }, [warn]);
 
   //Função que limpa o estados antes do jogo começar e após cada palavra acertada
   const cleanStates = useCallback(() => {
@@ -216,6 +243,7 @@ function App() {
           points={score}
           guessedLetters={guessedLetters}
           wrongLetters={wrongLetters}
+          ref={childRefInput}
         />
       )}
       {gameStage === "end" && (
@@ -227,7 +255,13 @@ function App() {
           word={word}
         />
       )}
-      {warn && <WarnComponent handleClickWarn={hideWarn} />}
+      {warn && (
+        <WarnComponent
+          handleClickWarn={hideWarn}
+          handleKeyUpWarn={hideWarnKeyUp}
+          ref={childRefButton}
+        />
+      )}
     </div>
   );
 }

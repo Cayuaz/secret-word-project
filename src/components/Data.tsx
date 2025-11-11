@@ -36,7 +36,7 @@ const wordsList = {
     "Laranja",
     "Morango",
     "Uva",
-    "Pêssego", // Corrigido erro de digitação
+    "Pêssego",
     "Amora",
     "Ameixa",
     "Abacaxi",
@@ -102,8 +102,6 @@ const wordsList = {
     "Pastel",
     "Cachorro Quente",
   ],
-
-  // --- NOVAS CATEGORIAS ---
 
   animais: [
     "Elefante",
@@ -175,5 +173,11 @@ const stages = [
 //Criação de um type alias com os tipos das keys da wordsList
 type wordsListKeys = keyof typeof wordsList;
 
+//Tipo para as ForwardedRefs e para as refs do componente app
+interface focusRef {
+  focus: () => void;
+}
+
 export { wordsList, stages };
 export type { wordsListKeys };
+export type { focusRef };

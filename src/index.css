@@ -11,6 +11,10 @@ html {
   min-height: 100vh;
 }
 
+:root {
+  --white: #ffffff;
+}
+
 @font-face {
   font-family: "Titillium Web";
   src: url("./assets/fonts/TitilliumWeb-Regular.woff2") format("woff2"),
@@ -20,14 +24,14 @@ html {
 body {
   font-family: "Titillium Web", sans-serif;
   background: linear-gradient(180deg, #2e2e52, #000000);
-  color: #ffffff;
+  color: var(--white);
   min-height: 100vh;
 }
 
 button {
   background-color: #2e2e52;
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid var(--white);
+  color: var(--white);
   text-transform: uppercase;
   border-radius: 2rem;
   padding-block: clamp(0.8rem, 0.5vw + 0.2rem, 1.2rem);
@@ -38,6 +42,11 @@ button {
 button:hover {
   cursor: pointer;
   background-color: #262642;
+}
+
+button:focus {
+  outline: 2px solid var(--white);
+  outline-offset: 0.2rem;
 }
 
 h1 {
