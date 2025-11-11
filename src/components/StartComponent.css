@@ -4,7 +4,7 @@
   justify-content: center;
   flex-direction: column;
   justify-content: space-around;
-  padding-block: 1rem;
+  padding-block: 1.6rem;
   padding-inline: 1rem;
   min-height: 100vh;
 }
@@ -61,8 +61,4 @@
   .cards-tips {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  /* .start-container {
-    justify-content: space-around;
-  } */
 }

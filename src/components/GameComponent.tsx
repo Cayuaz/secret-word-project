@@ -76,8 +76,6 @@ const GameComponent = forwardRef(
       hideWarn();
     };
 
-    console.log(letters);
-
     return (
       <div className="game-container">
         <h1>Advinhe a palavra</h1>

@@ -125,11 +125,9 @@ function App() {
     const { randomCategory, randomWord } = getCategoryAndWord();
 
     //Categoria escolhida
-    console.log("Categoria: " + randomCategory);
     setCategory(randomCategory);
 
     //Palavra escolhida
-    console.log("Palavra: " + randomWord);
     setWord(randomWord);
 
     //Remoção de espaços na palavra escolhida
@@ -141,7 +139,6 @@ function App() {
 
     //Como letters armazena o array de letras da palavra escolhida com acentos, é preciso remove-lós com a função removeAccents para fazer a verificação correta ignorando acentos e sem modificar o array original
     const wordWhithoutAccents = removeAccents(wordLetters.join(""));
-    console.log("Array de palavras sem acentos: " + wordWhithoutAccents);
     setLettersWhithoutAccents(wordWhithoutAccents.split(""));
 
     setGameStage(game.name);
@@ -155,6 +152,7 @@ function App() {
 
   //Função de callback do botão de sair do jogo
   const exitGame = () => {
+    setWarn(false);
     setGameStage(end.name);
   };
 
@@ -196,13 +194,10 @@ function App() {
     //Array de letras sem caracteres repetidos
     const uniqueLetters = [...new Set(lettersWhithoutAccents)];
 
-    console.log(uniqueLetters);
-
     if (uniqueLetters.every((letter) => guessedLetters.includes(letter))) {
       setScore((prev) => prev + 100);
       handleStart();
       setGuessedWord((prev) => [...prev, word]);
-      console.log("Wins");
     }
   }, [
     lettersWhithoutAccents,
