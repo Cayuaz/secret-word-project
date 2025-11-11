@@ -88,7 +88,7 @@ O projeto foi criado com [Vite](https://vitejs.dev/). Para executá-lo localment
 1.  Clone este repositório:
 
     ```bash
-    git clone [https://github.com/SEU-USUARIO/secret-word-project.git](https://github.com/SEU-USUARIO/secret-word-project.git)
+    git clone [https://github.com/Cayuaz/secret-word-project/tree/main?tab=readme-ov-file#link-do-projeto](https://github.com/Cayuaz/secret-word-project/tree/main?tab=readme-ov-file#link-do-projeto)
     ```
 
 2.  Navegue até o diretório do projeto:
@@ -117,7 +117,7 @@ O projeto foi criado com [Vite](https://vitejs.dev/). Para executá-lo localment
 
 Você pode acessar a versão online do projeto através deste link:
 
-[https://SEU-LINK-AQUI.vercel.app/](https://SEU-LINK-AQUI.vercel.app/)
+[https://secret-word-project-4zsb.vercel.app/](https://secret-word-project-4zsb.vercel.app/)
 
 ---
 
